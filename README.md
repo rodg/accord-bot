@@ -1,7 +1,7 @@
 ## accord-bot
 Commands:
 
-!hlpe
+!help
 !discord
 !srdc
 and some more secret ones ;)
