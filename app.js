@@ -18,7 +18,9 @@ client.connect();
 
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
-  if (self) { return; } // Ignore messages from the bot
+  if (self) { 
+    return;
+  } // Ignore messages from the bot
   // Remove whitespace from chat message
   //console.log(context);
   const commandName = msg.trim();
@@ -33,12 +35,27 @@ function onMessageHandler (target, context, msg, self) {
         client.say(target, 'Drakengard Speedrun Discord: https://discordapp.com/invite/y4D4KW8');
         console.log(`* Executed ${commandName} command`);
         break;
+    case 'GRUN':
+        client.say(target, "GRUN");
+        console.log(`* Executed ${commandName} command`);
+        break;
+    case '!race':
+        client.say(target, "link to race: http://www.multitwitch.tv/DrDevinRX/percyz01/rodg1400");
+        console.log(`* Executed ${commandName} command`);
+        break;
     case '!srdc':
         client.say(target, "Rod's srdc page: https://www.speedrun.com/user/RodG");
         console.log(`* Executed ${commandName} command`);
         break;
+    case '!Loren':
+    case '!loren':
+        client.say(target, "Loren is a dude, hes on my bed. Yeet!");
+        console.log(`* Executed ${commandName} command`);
+        break;
     case '!info':
-        client.say(target, "I'm a bot made by RodG. Try !srdc or !discord. My source code is here: github.com/rodg/accord-bot");
+        client.say(target, 
+            "I'm a bot made by RodG. Try !srdc or !discord." + 
+            "My source code is here: github.com/rodg/accord-bot");
         console.log(`* Executed ${commandName} command`);
         break;
     case 'HahaCar':
