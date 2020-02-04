@@ -67,7 +67,7 @@ function onMessageHandler (target, context, msg, self) {
         break;
     case '!newrace':
     case '!nr':
-        if(context.username.match(/rodg1400/)){
+        if(context.username.match(/rodg1400/)){ //TODO make this more general and not just for me
              race.runners = commandName.slice(1) 
              race.racing = true
              msg = "Race between runners " + race.runners.join(', ')+" started."
