@@ -7,6 +7,9 @@ const opts = JSON.parse(fs.readFileSync('.env.json'));
 
 // Create a client with our options
 const client = new tmi.client(opts);
+var race = { racing : false, 
+             gtg : false,
+             runners : [] }
 
 // Register our event handlers (defined below)
 client.on('message', onMessageHandler);
@@ -23,9 +26,9 @@ function onMessageHandler (target, context, msg, self) {
   } // Ignore messages from the bot
   // Remove whitespace from chat message
   //console.log(context);
-  const commandName = msg.trim();
+  const commandName = msg.trim().split(' ');
   // If the command is known, let's execute it
-  switch (commandName){
+  switch (commandName[0]){
     case '!dice':
         const num = rollDice();
         client.say(target, `You rolled a ${num}`);
@@ -39,17 +42,13 @@ function onMessageHandler (target, context, msg, self) {
         client.say(target, "GRUN");
         console.log(`* Executed ${commandName} command`);
         break;
-    case '!race':
-        client.say(target, "link to race: http://www.multitwitch.tv/DrDevinRX/percyz01/rodg1400");
-        console.log(`* Executed ${commandName} command`);
-        break;
     case '!srdc':
         client.say(target, "Rod's srdc page: https://www.speedrun.com/user/RodG");
         console.log(`* Executed ${commandName} command`);
         break;
     case '!Loren':
     case '!loren':
-        client.say(target, "Loren is a dude, hes on my bed. Yeet!");
+        client.say(target, "Loren is a dude.");
         console.log(`* Executed ${commandName} command`);
         break;
     case '!info':
@@ -64,6 +63,26 @@ function onMessageHandler (target, context, msg, self) {
         break;
     case 'hi accord':
         client.say(target, "hi! i'm a whatever kaine thinks sounds best ;)");
+        console.log(`* Executed ${commandName} command`);
+        break;
+    case '!newrace':
+    case '!nr':
+        if(context.username.match(/rodg1400/)){
+             race.runners = commandName.slice(1) 
+             race.racing = true
+             msg = "Race between runners " + race.runners.join(', ')+" started."
+                    + " Race link: multitwitch.tv/" +  race.runners.join('/')
+        }else{
+            msg = "Hey, you can't do that!"
+        }
+        // maybe i should just store the string....
+        // then again, i could also have the bot snoop on their chats during the race...
+        client.say(target, msg);
+        console.log(`* Executed ${commandName} command`);
+        break;
+    case '!race':
+        client.say(target, 
+            "Link to race: multitwitch.tv/" + race.runners.join('/'));
         console.log(`* Executed ${commandName} command`);
         break;
     default: 
