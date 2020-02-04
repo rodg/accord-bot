@@ -81,8 +81,26 @@ function onMessageHandler (target, context, msg, self) {
         console.log(`* Executed ${commandName} command`);
         break;
     case '!race':
-        client.say(target, 
-            "Link to race: multitwitch.tv/" + race.runners.join('/'));
+        if(race.racing){
+            client.say(target, 
+                "Link to race: multitwitch.tv/" + race.runners.join('/'));
+        } else {
+           client.say(target, "There isn't currently a race going.")
+        }
+        console.log(`* Executed ${commandName} command`);
+        break;
+    case '!endrace':
+    case '!er':
+        if(context.username.match(/rodg1400/)){
+            race.runners = [] 
+            race.racing = false
+            msg = "Okay, I've ended the race"
+        }else{
+            msg = "Hey, you can't do that!"
+        }
+        // maybe i should just store the string....
+        // then again, i could also have the bot snoop on their chats during the race...
+        client.say(target, msg);
         console.log(`* Executed ${commandName} command`);
         break;
     default: 
